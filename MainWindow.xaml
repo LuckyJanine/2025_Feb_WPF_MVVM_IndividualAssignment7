@@ -19,15 +19,29 @@
             <GroupBox FontSize="18"
                 Header="Donor Information" Margin="10">
                 <StackPanel>
-                    <Grid Margin="10, 15, 10, 10">
+                    <Grid Margin="5, 10, 5, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock FontSize="16"
                             Text="Gender (eg. XX or XY): "/>
-                        <TextBox FontSize="16"
-                            Grid.Column="1"/>
+                        <TextBox 
+                            x:Name="txtGender"
+                            FontSize="16"
+                            Grid.Column="1"
+                            Text="{Binding CurrentDonor.Gender,
+                            ValidatesOnDataErrors=True}"/>
+                        <TextBlock  Grid.Row="1" Grid.Column="1"
+                                    Margin="0, 2, 0, 0"
+                                    FontSize="11"
+                                    Foreground="Red" 
+                                    Text="{Binding (Validation.Errors).CurrentItem.ErrorContent, 
+                                    ElementName=txtGender}" />
                     </Grid>
                     <Grid Margin="10, 15, 10, 10">
                         <Grid.ColumnDefinitions>
