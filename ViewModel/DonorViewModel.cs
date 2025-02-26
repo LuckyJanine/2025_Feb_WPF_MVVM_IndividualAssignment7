@@ -27,6 +27,16 @@ namespace CellBank.ViewModel
             }
         }
 
+        public int Age
+        {
+            get => _age;
+            set
+            {
+                _age = value;
+                OnPropertyChanged(nameof(Age));
+            }
+        }
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -51,7 +61,13 @@ namespace CellBank.ViewModel
                     case nameof(Gender):
                         if (!_isGenderValid)
                         {
-                            return "Gender is required (eg. XX or XY).";
+                            return "Please provide Gender info.";
+                        }
+                        break;
+                    case nameof(Age):
+                        if (Age < 0)
+                        {
+                            return "Age is positive number or zero.";
                         }
                         break;
                 }
