@@ -1,14 +1,8 @@
 ﻿using CellBank.ViewModel;
-using System.Text;
+using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CellBank;
 
@@ -21,5 +15,34 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = new MainViewModel();
+    }
+}
+
+class BloodTypeEnumDescConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value == null)
+        {
+            return string.Empty;
+        }
+
+        var field = value.GetType().GetField(value.ToString());
+        var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
+
+        return attribute == null ? value.ToString() : attribute.Description;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        foreach (var field in targetType.GetFields())
+        {
+            var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
+            if (attribute != null && attribute.Description == value.ToString())
+            {
+                return field.GetValue(null);
+            }
+        }
+        return null;
     }
 }

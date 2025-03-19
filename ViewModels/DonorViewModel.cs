@@ -8,8 +8,6 @@ namespace CellBank.ViewModel
         public event PropertyChangedEventHandler? PropertyChanged;
         public string Error => null;
 
-        private string _donorId;
-
         private string _gender;
         private bool _isGenderValid = true;
 

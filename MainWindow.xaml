@@ -6,6 +6,11 @@
         xmlns:local="clr-namespace:CellBank"
         mc:Ignorable="d"
         Title="Cell Bank Registration" Height="600" Width="1000">
+
+    <Window.Resources>
+        <local:BloodTypeEnumDescConverter x:Key="BloodTypeEnumDescConverter"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -79,15 +84,20 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="1.2*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="14"
+                        <TextBlock FontSize="12"
                             TextWrapping="Wrap"
                             Text="Blood Type: "/>
                         <ComboBox 
-                            x:Name="txtBlood"
-                            FontSize="14"
+                            x:Name="cmbBlood"
+                            FontSize="12"
                             Grid.Column="1"
-                            Text="{Binding CurrentDonor,
-                            UpdateSourceTrigger=PropertyChanged}"/>
+                            ItemsSource="{Binding BloodTypes}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource BloodTypeEnumDescConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </Grid>
                     <Grid Margin="5, 10, 5, 0">
                         <Grid.RowDefinitions>
@@ -98,15 +108,17 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="1.2*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="14"
+                        <TextBlock FontSize="12"
                             TextWrapping="Wrap"
                             Text="Starting Sample: "/>
                         <ComboBox 
                             x:Name="txtSample"
-                            FontSize="14"
+                            FontSize="12"
                             Grid.Column="1"
-                            Text="{Binding CurrentDonor,
-                            UpdateSourceTrigger=PropertyChanged}"/>
+                            
+                            />
+                        <!--Text="{Binding CurrentDonor,
+                            UpdateSourceTrigger=PropertyChanged}"-->
                     </Grid>
                     <Button HorizontalAlignment="Right"
                             Content="Add Donation" FontSize="14"
