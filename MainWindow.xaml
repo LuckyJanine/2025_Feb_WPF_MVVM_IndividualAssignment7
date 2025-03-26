@@ -10,122 +10,157 @@
     <Window.Resources>
         <local:BloodTypeEnumDescConverter x:Key="BloodTypeEnumDescConverter"/>
     </Window.Resources>
-    
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1.6*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="1.2*"/>
-            </Grid.RowDefinitions>
-            <GroupBox FontSize="18"
-                Header="Donor Information" Margin="10">
-                <StackPanel>
-                    <Grid Margin="5, 10, 5, 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="1.2*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="14"
-                            Text="Gender (eg. XX or XY): "/>
-                        <TextBox 
-                            x:Name="txtGender"
-                            FontSize="16"
-                            Grid.Column="1"
-                            Text="{Binding CurrentDonor.Gender,
-                            UpdateSourceTrigger=PropertyChanged,
-                            ValidatesOnDataErrors=True}"/>
-                        <TextBlock  Grid.Row="1" Grid.Column="1"
-                                    Margin="0, 2, 0, 0"
-                                    FontSize="10"
-                                    Foreground="Red"
-                                    Text="{Binding (Validation.Errors).CurrentItem.ErrorContent, 
-                                    ElementName=txtGender}" />
-                    </Grid>
-                    <Grid Margin="5, 5, 5, 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="1.2*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="14"
-                                   TextWrapping="Wrap"
-                            Text="Age: "/>
-                        <TextBox 
-                            x:Name="txtAge"
-                            FontSize="16"
-                            Grid.Column="1"
-                            Text="{Binding CurrentDonor.Age,
-                            UpdateSourceTrigger=PropertyChanged,
-                            ValidatesOnDataErrors=True}"/>
-                        <TextBlock  Grid.Row="1" Grid.Column="1"
-                            Margin="0, 2, 0, 0"
-                            FontSize="11"
-                            Foreground="Red" 
-                            Text="{Binding (Validation.Errors).CurrentItem.ErrorContent, 
-                            ElementName=txtAge}" />
-                    </Grid>
-                    <Grid Margin="5, 5, 5, 5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="1.2*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="12"
-                            TextWrapping="Wrap"
-                            Text="Blood Type: "/>
-                        <ComboBox 
-                            x:Name="cmbBlood"
-                            FontSize="12"
-                            Grid.Column="1"
-                            ItemsSource="{Binding BloodTypes}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Converter={StaticResource BloodTypeEnumDescConverter}}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </Grid>
-                    <Grid Margin="5, 10, 5, 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="1.2*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontSize="12"
-                            TextWrapping="Wrap"
-                            Text="Starting Sample: "/>
-                        <ComboBox 
-                            x:Name="txtSample"
-                            FontSize="12"
-                            Grid.Column="1"
-                            
+            <Menu HorizontalAlignment="Left">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New"
+                                x:Name="mnuNew"/>
+                    <MenuItem Header="_Open">
+                        <MenuItem Header="Text file"/>
+                        <MenuItem Header="Json"/>
+                    </MenuItem>
+                    <MenuItem Header="_Save"
+                                x:Name="mnuSave"
+                    />
+                    <MenuItem Header="Save _As">
+                        <MenuItem Header="Text file" 
+                                    IsCheckable="True"
                             />
-                        <!--Text="{Binding CurrentDonor,
-                            UpdateSourceTrigger=PropertyChanged}"-->
-                    </Grid>
-                    <Button HorizontalAlignment="Right"
-                            Content="Add Donation" FontSize="14"
-                        Width="100" Height="30" Margin="0,10,5,0">
-                    </Button>
-                </StackPanel>
-            </GroupBox>
+                        <MenuItem Header="Json"
+                                    IsCheckable="True"
+                            />
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="XML"/>
+                    <Separator/>
+                    <MenuItem Header="E_xit"/>
+                </MenuItem>
+            </Menu>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.6*"/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="1.2*"/>
+                </Grid.RowDefinitions>
+                <GroupBox FontSize="14"
+                    Header="Donor Information" Margin="5">
+                    <StackPanel Margin="5">
+                        <Grid Margin="5, 8, 5, 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="12"
+                                Text="Gender (eg. XX or XY): "/>
+                            <TextBox 
+                                x:Name="txtGender"
+                                FontSize="16"
+                                Grid.Column="1"
+                                Text="{Binding CurrentDonor.Gender,
+                                UpdateSourceTrigger=PropertyChanged,
+                                ValidatesOnDataErrors=True}"/>
+                            <TextBlock  Grid.Row="1" Grid.Column="1"
+                                        Margin="0, 2, 0, 0"
+                                        FontSize="10"
+                                        Foreground="Red"
+                                        Text="{Binding (Validation.Errors).CurrentItem.ErrorContent, 
+                                        ElementName=txtGender}" />
+                        </Grid>
+                        <Grid Margin="5, 5, 5, 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="12"
+                                       TextWrapping="Wrap"
+                                       Text="Age: "/>
+                            <TextBox 
+                                x:Name="txtAge"
+                                FontSize="16"
+                                Grid.Column="1"
+                                Text="{Binding CurrentDonor.Age,
+                                UpdateSourceTrigger=PropertyChanged,
+                                ValidatesOnDataErrors=True}"/>
+                            <TextBlock  Grid.Row="1" Grid.Column="1"
+                                Margin="0, 2, 0, 0"
+                                FontSize="11"
+                                Foreground="Red" 
+                                Text="{Binding (Validation.Errors).CurrentItem.ErrorContent, 
+                                ElementName=txtAge}" />
+                        </Grid>
+                        <Grid Margin="5, 5, 5, 5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="12"
+                                TextWrapping="Wrap"
+                                Text="Blood Type: "/>
+                            <ComboBox 
+                                x:Name="cmbBlood"
+                                FontSize="12"
+                                Grid.Column="1"
+                                ItemsSource="{Binding BloodTypes}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource BloodTypeEnumDescConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="5, 10, 5, 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="12"
+                                TextWrapping="Wrap"
+                                Text="Starting Sample: "/>
+                            <ComboBox 
+                                x:Name="txtSample"
+                                FontSize="12"
+                                Grid.Column="1"
+                            
+                                />
+                            <!--Text="{Binding CurrentDonor,
+                                UpdateSourceTrigger=PropertyChanged}"-->
+                        </Grid>
+                        <Button HorizontalAlignment="Right"
+                                Content="Add Donation" FontSize="12"
+                                Width="90" Height="25" Margin="0,15,5,0">
+                        </Button>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
